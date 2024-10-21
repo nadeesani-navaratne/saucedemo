@@ -24,8 +24,17 @@ class CheckoutPage {
         return cy.get('[data-test="complete-header"]')
     }
 
-    verifySuccessfullMessage(ordersuccessmessage) {
-        cy.get('[data-test="complete-header"]').should('have.text', ordersuccessmessage)
+    verifySuccessfullMessage(orderSuccessMessage) {
+        cy.get('[data-test="complete-header"]').should('have.text', orderSuccessMessage)
+
+    }
+
+    fillCheckoutForm(firstname, lastname, postalcode) {
+        this.fillFirstName(firstname);
+        this.fillLastName(lastname);
+        this.fillPostalCode(postalcode);
+        this.clickContinueButton();
     }
 }
+
 export default new CheckoutPage()

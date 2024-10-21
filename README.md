@@ -31,6 +31,20 @@ Use following command to run all the tests in headless mode.
 - If you want to run one spec file you can use the following command
 `npx cypress run --spec "cypress/e2e/test-file.cy.js"`
 
+## Imrovments
+Reporting - By adding reproting capabiltiy to test framework, we can get insights of the tests.
+Ex: Can intergrate with Reportings like Mochawesome or Allurereports
+
+User credentials handling - Have to handle user credentials securley. 
+We can use .env files instead of hardcoding the user details. This prevents sensitive data from being exposed in version control system like Git. When we are using pipeline(Ex: In Azure) can create azure pipline keys for handling user creadentials or can use something like Key valte to handle details securely.
+
+Logging Improvements - We can add custom loggings in the tests and enable other logs like pipeline logs for easy debugging.
+
+Error handling - Effectivie error handling is important to identifiy the test failiures correctly.
+
+Data clean up - Better to clean up test data after end of executing the tests particularly in  databases or external systems.
+
+
 
 
 

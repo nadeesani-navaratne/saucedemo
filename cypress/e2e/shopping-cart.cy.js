@@ -1,6 +1,8 @@
 import CheckoutPage from "../pages/checkout-page";
 import ProductsPage from "../pages/products-page";
 import ShoppingCartPage from "../pages/shopping-cart-page";
+const username = Cypress.env('username');
+const password = Cypress.env('password');
 
 describe('Shopping cart', () => {
   // Assuming user details and product details use for multiple tests
@@ -22,29 +24,17 @@ describe('Shopping cart', () => {
   });
 
   beforeEach(() => {
-    const username = Cypress.env('username');
-    const password = Cypress.env('password');
     cy.login(username, password);
   })
+
   it('should add a product to the cart and complete the order successfully', () => {
-    const productName = productData[0].name;
-    ProductsPage.clickOnProduct(productName)
-    ProductsPage.clickOnAddToCart()
-    ShoppingCartPage.clickShoppingCartIcon()
-    ShoppingCartPage.clickCheckoutButton()
-
-    // Fill out the checkout form
-    CheckoutPage.fillFirstName(userData.firstname)
-    CheckoutPage.fillLastName(userData.lastname)
-    CheckoutPage.fillPostalCode(userData.postalcode)
-    CheckoutPage.clickContinueButton()
-
-    // Verify product details in the cart
-    ShoppingCartPage.verifyProductName(productName)
-    ShoppingCartPage.verifyProductPrice(productData[0].price)
-    ShoppingCartPage.verifyProductDescription(productData[0].description)
-    
+    const product = productData.find(item => item.name === "Sauce Labs Backpack");
+    const productName = product.name;
+    ProductsPage.addProductToCart(productName)
+    ShoppingCartPage.proceedToCheckout()
+    CheckoutPage.fillCheckoutForm(userData.firstname, userData.lastname, userData.postalcode)
+    ShoppingCartPage.verifyProductDetailsInCart(productName, product.price, product.description)
     CheckoutPage.clickFinishButton()
-    CheckoutPage.verifySuccessfullMessage(applicationData.ordersuccessmessage)
+    CheckoutPage.verifySuccessfullMessage(applicationData.orderSuccessMessage)
   })
 })

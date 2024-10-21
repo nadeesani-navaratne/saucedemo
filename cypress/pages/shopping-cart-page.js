@@ -25,5 +25,15 @@ class ShoppingCartPage {
     verifyProductDescription(productdescription) {
         cy.get('[data-test="inventory-item-desc"]').should('have.text', productdescription)
     }
+
+    verifyProductDetailsInCart(productName, productprice, productdescription) {
+        this.verifyProductName(productName);
+        this.verifyProductPrice(productprice);
+        this.verifyProductDescription(productdescription);
+    }
+    proceedToCheckout() {
+        this.clickShoppingCartIcon();
+        this.clickCheckoutButton();
+    }
 }
 export default new ShoppingCartPage()
